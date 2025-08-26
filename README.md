@@ -3,14 +3,20 @@
 Aplikasi frontend sederhana untuk menampilkan daftar pengguna dari API **https://jsonplaceholder.typicode.com/users**.  
 Fitur:
 - Daftar pengguna (vertikal scroll cards)
-- Halaman detail user (klik kartu)
-- Cari sesuai nama (menggunakan partial, case-insensitive)
-- Urutkan (nama/kota) & filter menurut kota
+- Halaman detail pengguna (klik kartu)
+- Search by nama (menggunakan partial, case-insensitive)
+- Sort (nama/kota) & urutkan berdasarkan kota
 - Highlight kata yang dicari
 - Responsive dark theme UI
 
+---
 
-## Instalasi & Setup
+## 🚀 Demo
+Vercel: [https://jsonplaceholder-users-dark.vercel.app/](https://jsonplaceholder-users-dark.vercel.app/)
+
+---
+
+## 🛠️ Instalasi & Setup
 
 ### Prasyarat
 - **Node.js** versi 18+ (atau 20)
@@ -18,7 +24,6 @@ Fitur:
 
 ### Langkah instalasi
 1. Clone repo:
-   ```bash
    git clone https://github.com/MirzaSNR/jsonplaceholder-users-dark.git
    cd jsonplaceholder-users-dark
    npm install
