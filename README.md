@@ -1,5 +1,52 @@
-# Vue 3 + Vite
+# JSONPlaceholder Users — Dark Theme (Vue 3 + Vite)
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Aplikasi frontend sederhana untuk menampilkan daftar pengguna dari API **https://jsonplaceholder.typicode.com/users**.  
+Fitur:
+- Daftar pengguna (vertikal scroll cards)
+- Halaman detail user (klik kartu)
+- Cari sesuai nama (menggunakan partial, case-insensitive)
+- Urutkan (nama/kota) & filter menurut kota
+- Highlight kata yang dicari
+- Responsive dark theme UI
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+
+## Instalasi & Setup
+
+### Prasyarat
+- **Node.js** versi 18+ (atau 20)
+- **npm** sudah terinstall
+
+### Langkah instalasi
+1. Clone repo:
+   ```bash
+   git clone https://github.com/MirzaSNR/jsonplaceholder-users-dark.git
+   cd jsonplaceholder-users-dark
+   npm install
+
+## Struktur Kode
+
+repo/
+├─ index.html              # halaman awalan HTML
+├─ package.json            # konfigurasi project + scripts
+├─ vite.config.js          # konfigurasi vite
+├─ netlify.toml / vercel.json  # config deploy SPA
+└─ src/
+   ├─ main.js              # bootstrap Vue app
+   ├─ App.vue              # root component, shell + layout
+   ├─ router/
+   │  └─ index.js          # definisi route (Home, UserDetail)
+   ├─ services/
+   │  └─ api.js            # helper fetch API users
+   ├─ components/
+   │  ├─ SearchBar.vue     # input pencarian by nama
+   │  └─ UserCard.vue      # kartu user
+   └─ views/
+      ├─ UsersView.vue     # halaman Home
+      └─ UserDetailView.vue# halaman detail user
+
+## Menjalankan Applikasi
+### Mode Development
+- **npm run dev**
+- **npm run build**
+- **npm run preview**
+
