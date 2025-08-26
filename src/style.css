@@ -1,0 +1,49 @@
+/* === Responsive base === */
+:root{
+  /* light theme (sudah kamu pakai) */
+  --bg:#f9fafc; --bg-elev:#ffffff; --line:#e2e8f0;
+  --text:#1e293b; --muted:#64748b;
+  --accent:#2563eb; --accent-2:#3b82f6;
+  --danger:#dc2626; --ok:#16a34a;
+  --radius:12px; --shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+/* Typography scale responsif */
+h1{ font-size:clamp(1.1rem, 1.5vw + 1rem, 1.6rem); margin:0; }
+h2{ font-size:clamp(1rem, 1.2vw + .8rem, 1.3rem); margin:.2rem 0; }
+h3{ font-size:clamp(.95rem, 1vw + .7rem, 1.1rem); }
+
+.main{
+  padding:clamp(12px, 2vw, 20px);
+  max-width:min(1100px, 96vw);
+  margin:0 auto;
+}
+
+/* Grid yang fleksibel di semua layar */
+.grid{ display:grid; gap:clamp(.7rem, 1.2vw, 1rem); }
+.cols{
+  /* kolom menyesuaikan lebar layar */
+  grid-template-columns: repeat(auto-fill, minmax(clamp(220px, 45vw, 320px), 1fr));
+}
+
+/* Header responsif */
+.topbar{ gap:.6rem; padding:12px clamp(12px, 2vw, 18px); }
+.brand{ gap:.5rem; }
+.nav{ display:flex; gap:.4rem; flex-wrap:wrap; }
+.navlink{ padding:8px 10px; border-radius:8px; }
+
+/* Kartu & elemen interaktif */
+.card{ background:var(--bg-elev); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); }
+.btn{ padding:.65rem 1rem; border-radius:10px; }
+.input{ padding:.72rem .9rem; border-radius:10px; }
+
+/* Breakpoints */
+@media (max-width: 640px){
+  .topbar{ flex-direction:column; align-items:flex-start; }
+  .nav{ width:100%; gap:.3rem; }
+  .navlink{ display:inline-block; }
+}
+
+@media (min-width:641px) and (max-width:1024px){
+  .cols{ grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+}
