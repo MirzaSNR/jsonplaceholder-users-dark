@@ -1,0 +1,428 @@
+<!-- # Final Dark Theme — Vue 3 + Vite (Per-File Bundle)
+
+Copy each file into your project with the same paths.
+
+---
+## index.html
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Users — Vue + JSONPlaceholder</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+```
+
+---
+## package.json
+```json
+{
+  "name": "jsonplaceholder-users-dark",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173"
+  },
+  "dependencies": {
+    "vue": "^3.4.0",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "@vitejs/plugin-vue": "^5.0.0"
+  }
+}
+```
+
+---
+## vite.config.js
+```js
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+
+export default defineConfig({
+  plugins: [vue()],
+})
+```
+
+---
+## .gitignore
+```gitignore
+node_modules
+dist
+.DS_Store
+.vscode
+.env*
+```
+
+---
+## netlify.toml
+```toml
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+```
+
+---
+## vercel.json
+```json
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+```
+
+---
+## src/main.js
+```js
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router/index.js'
+
+createApp(App).use(router).mount('#app')
+```
+
+---
+## src/App.vue
+```vue
+<template>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2Zm1 14h-2v-2h2Zm0-4h-2V6h2Z"/></svg>
+        <span>JSONPlaceholder Users</span>
+      </div>
+      <nav class="nav">
+        <RouterLink to="/" class="navlink">Home</RouterLink>
+      </nav>
+    </header>
+    <main class="main"><RouterView /></main>
+    <footer class="footer">Vue 3 + Vite · Dark Theme</footer>
+  </div>
+</template>
+
+<script setup></script>
+
+<style>
+:root{
+  --bg:#0e1324; --bg-elev:#121a35; --line:#1c2a52;
+  --text:#e9ecff; --muted:#a5b2e8;
+  --accent:#7fb0ff; --accent-2:#c1d7ff;
+  --danger:#ffb4b4; --ok:#7dffa7;
+  --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+html,body,#app{height:100%}
+body{margin:0; font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; background:var(--bg); color:var(--text);}
+.app{min-height:100%; display:grid; grid-template-rows:auto 1fr auto;}
+.topbar{display:flex; justify-content:space-between; align-items:center; gap:.6rem; padding:12px clamp(12px,2vw,18px); border-bottom:1px solid var(--line); background:linear-gradient(to bottom, rgba(2,8,23,.9), rgba(2,8,23,.6)); backdrop-filter:saturate(140%) blur(6px); position:sticky; top:0;}
+.brand{display:flex; align-items:center; gap:.5rem; font-weight:700;}
+.nav{display:flex; gap:.4rem; flex-wrap:wrap;}
+.navlink{color:var(--muted); text-decoration:none; padding:8px 10px; border-radius:8px;}
+.navlink.router-link-active{color:var(--text); background:rgba(255,255,255,.06);}
+.main{padding:clamp(12px,2vw,20px); max-width:min(1100px,96vw); margin:0 auto;}
+.footer{padding:16px; text-align:center; border-top:1px solid var(--line); color:var(--muted);}
+.card{background:var(--bg-elev); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);}
+.btn{background:var(--accent); color:#06112a; border:0; border-radius:10px; padding:.65rem 1rem; font-weight:700; cursor:pointer;}
+.input{width:100%; padding:.72rem .9rem; border-radius:10px; border:1px solid var(--line); background:#0b1433; color:var(--text); outline:none;}
+.grid{display:grid; gap:clamp(.7rem,1.2vw,1rem);} 
+.cols{grid-template-columns: repeat(auto-fill, minmax(clamp(220px,45vw,320px), 1fr));}
+.badge{display:inline-flex; align-items:center; gap:.4rem; padding:.3rem .55rem; border-radius:999px; font-size:.78rem; background:rgba(255,255,255,.06); color:var(--accent-2); border:1px solid var(--line)}
+.empty{color:var(--muted); text-align:center;}
+.skeleton{position:relative; overflow:hidden; background:#111a3a; border-radius:12px; height:92px; border:1px solid var(--line);} 
+.skeleton::after{content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,.09),transparent); transform:translateX(-100%); animation:shimmer 1.2s infinite;} 
+@keyframes shimmer{to{transform:translateX(100%)}}
+@media (max-width: 640px){ .topbar{flex-direction:column; align-items:flex-start;} .nav{width:100%;} }
+</style>
+```
+
+---
+## src/router/index.js
+```js
+import { createRouter, createWebHistory } from 'vue-router'
+import UsersView from '../views/UsersView.vue'
+import UserDetailView from '../views/UserDetailView.vue'
+
+export default createRouter({
+  history: createWebHistory(),
+  routes: [
+    { path: '/', name: 'home', component: UsersView },
+    { path: '/users/:id', name: 'user-detail', component: UserDetailView, props: true },
+  ],
+  scrollBehavior(){ return { top: 0 } }
+})
+```
+
+---
+## src/services/api.js
+```js
+const BASE_URL = 'https://jsonplaceholder.typicode.com'
+
+export async function getUsers(signal) {
+  const res = await fetch(`${BASE_URL}/users`, { signal })
+  if (!res.ok) throw new Error('Failed to fetch users')
+  return res.json()
+}
+
+export async function getUserById(id, signal) {
+  const res = await fetch(`${BASE_URL}/users/${id}`, { signal })
+  if (!res.ok) throw new Error('Failed to fetch user detail')
+  return res.json()
+}
+```
+
+---
+## src/components/SearchBar.vue
+```vue
+<template>
+  <div class="card" style="padding:14px;">
+    <div class="wrap">
+      <div class="field">
+        <label class="badge" for="name">Search by name</label>
+        <input id="name" class="input" type="text" autocomplete="off" placeholder="e.g. Leanne" v-model="model" @input="onInput" />
+        <p style="margin:.35rem 0 0 0; color:var(--muted); font-size:.85rem">Ketik sebagian nama, mis. <code>lean</code>.</p>
+      </div>
+      <div class="actions" style="display:flex; gap:.6rem;">
+        <button class="btn" @click="emitSearch">Search</button>
+        <button class="btn" style="background:#23335f; color:#cfe0ff" @click="clearAll">Reset</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+const props = defineProps({ modelValue: { type: String, default: '' } })
+const emit  = defineEmits(['update:modelValue','search'])
+const model = ref(props.modelValue)
+function emitSearch(){ emit('search', model.value.trim()) }
+let t
+function onInput(e){ const v = e.target.value; model.value = v; emit('update:modelValue', v); clearTimeout(t); t = setTimeout(() => emit('search', v.trim()), 250) }
+function clearAll(){ model.value=''; emit('update:modelValue',''); emit('search','') }
+</script>
+
+<style scoped>
+.wrap{ display:flex; gap:.6rem; align-items:center; flex-wrap:wrap; }
+.field{ flex:1 1 260px; min-width:220px; }
+@media (max-width: 640px){ .actions{ width:100%; } .actions .btn{ flex:1 1 0; } }
+</style>
+```
+
+---
+## src/components/UserCard.vue
+```vue
+<template>
+  <article class="card user" @click="$router.push(`/users/${user.id}`)">
+    <div class="row">
+      <div class="avatar" :style="{ background: color }">{{ initials }}</div>
+      <div class="meta">
+        <h3 class="user__name" v-html="hl(user.name)"></h3>
+        <p class="user__line" v-html="hl(user.email)"></p>
+        <p class="user__line">📍 {{ user.address.street }}, {{ user.address.city }}</p>
+      </div>
+      <span class="badge">ID: {{ user.id }}</span>
+    </div>
+  </article>
+</template>
+
+<script setup>
+const props = defineProps({ user: { type: Object, required: true }, highlight: { type: String, default: '' } })
+const initials = (props.user.name || '?').split(' ').map(w => w && w[0] ? w[0].toUpperCase() : '').filter(Boolean).slice(0,2).join('') || '?'
+const palette = ['#324d92','#7b3fa1','#216e61','#7a2e2e','#174e87','#7b2d77','#4c3b91']
+const color = palette[(props.user.id || 0) % palette.length]
+function hl(text=''){ if(!props.highlight) return text; const safe = props.highlight.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); return String(text).replace(new RegExp(`(${safe})`,'ig'), '<mark>$1</mark>') }
+</script>
+
+<style scoped>
+.user{ padding:14px; cursor:pointer; transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease; }
+.user:hover{ transform:translateY(-2px); box-shadow:0 12px 34px rgba(0,0,0,.35); border-color:#29407c; }
+.row{ display:grid; grid-template-columns:auto 1fr auto; gap:.75rem; align-items:center; }
+.avatar{ width:44px; height:44px; border-radius:50%; display:grid; place-items:center; font-weight:800; color:#e9ecff; border:1px solid var(--line); }
+.meta{ min-width:0 }
+.user__name{ margin:.1rem 0; font-size:clamp(1rem, 1vw + .8rem, 1.15rem); }
+.user__line{ margin:.15rem 0; color:#cdd6ff; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+mark{ background:#fde047; color:#0b1020; padding:0 2px; border-radius:3px; }
+@media (max-width:640px){ .user{ padding:16px } }
+</style>
+```
+
+---
+## src/views/UsersView.vue
+```vue
+<template>
+  <section class="grid">
+    <SearchBar v-model="name" @search="handleSearch" />
+
+    <div class="card" style="padding:12px; display:flex; gap:.6rem; flex-wrap:wrap; align-items:center;">
+      <div style="display:flex; gap:.4rem; align-items:center;">
+        <label style="color:var(--muted); font-size:.9rem;">Sort</label>
+        <select v-model="sortBy" class="input" style="padding:.5rem; width:160px; background:#0b1433; color:var(--text);">
+          <option value="name-asc">Name A–Z</option>
+          <option value="name-desc">Name Z–A</option>
+          <option value="city-asc">City A–Z</option>
+          <option value="city-desc">City Z–A</option>
+        </select>
+      </div>
+
+      <div style="display:flex; gap:.4rem; align-items:center;">
+        <label style="color:var(--muted); font-size:.9rem;">City</label>
+        <select v-model="city" class="input" style="padding:.5rem; width:180px; background:#0b1433; color:var(--text);">
+          <option value="">All Cities</option>
+          <option v-for="c in cities" :key="c" :value="c">{{ c }}</option>
+        </select>
+      </div>
+
+      <button class="btn" @click="resetAll">Reset All</button>
+    </div>
+
+    <div v-if="error" class="card" style="padding:14px; color:var(--danger)">{{ error }}</div>
+
+    <div v-else-if="loading" class="grid cols" style="min-height:40vh;">
+      <div class="skeleton" v-for="i in 6" :key="i" style="height:100px;"></div>
+    </div>
+
+    <div v-else-if="visible.length === 0" class="card empty" style="padding:28px; min-height:30vh; display:grid; place-items:center;">
+      <p>Tidak ada user untuk: <strong>{{ name || '(kosong)' }}</strong></p>
+    </div>
+
+    <div v-else class="grid cols">
+      <UserCard v-for="u in visible" :key="u.id" :user="u" :highlight="name" />
+    </div>
+  </section>
+</template>
+
+<script setup>
+import { ref, onMounted, computed } from 'vue'
+import { getUsers } from '../services/api.js'
+import SearchBar from '../components/SearchBar.vue'
+import UserCard from '../components/UserCard.vue'
+
+const allUsers = ref([])
+const loading  = ref(false)
+const error    = ref('')
+const name     = ref('')
+
+const sortBy   = ref('name-asc')
+const city     = ref('')
+
+const cities = computed(() =>
+  [...new Set(allUsers.value.map(u => u.address?.city).filter(Boolean))].sort()
+)
+
+onMounted(async () => {
+  loading.value = true
+  try {
+    allUsers.value = await getUsers()
+  } catch (e) {
+    error.value = e?.message || 'Failed to load users'
+  } finally {
+    loading.value = false
+  }
+})
+
+function resetAll(){ name.value=''; city.value=''; sortBy.value='name-asc' }
+function handleSearch(q){ name.value = q }
+
+const filtered = computed(() => {
+  const q = name.value.toLowerCase().trim()
+  return allUsers.value.filter(u => {
+    const nm = (u.name || '').toLowerCase()
+    const em = (u.email || '').toLowerCase()
+    const matchName = !q || nm.includes(q) || em.includes(q)
+    const matchCity = !city.value || u.address?.city === city.value
+    return matchName && matchCity
+  })
+})
+
+const visible = computed(() => {
+  const arr = [...filtered.value]
+  const sorters = {
+    'name-asc' : (a,b)=> a.name.localeCompare(b.name),
+    'name-desc': (a,b)=> b.name.localeCompare(a.name),
+    'city-asc' : (a,b)=> (a.address?.city || '').localeCompare(b.address?.city || ''),
+    'city-desc': (a,b)=> (b.address?.city || '').localeCompare(a.address?.city || ''),
+  }
+  return arr.sort(sorters[sortBy.value] || sorters['name-asc'])
+})
+</script>
+```
+
+---
+## src/views/UserDetailView.vue
+```vue
+<template>
+  <section class="grid">
+    <div class="card" style="padding:16px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem;">
+        <RouterLink to="/" class="badge">← Back</RouterLink>
+        <span class="badge" v-if="user">User #{{ user.id }}</span>
+      </div>
+
+      <div v-if="loading" class="skeleton" style="height:120px; margin-top:12px;"></div>
+      <p v-else-if="error" style="color:var(--danger); margin-top:12px;">{{ error }}</p>
+
+      <div v-else-if="user" class="grid" style="gap:12px; margin-top:12px;">
+        <h2 style="margin:.3rem 0 0 0">{{ user.name }}</h2>
+
+        <div class="grid cols" style="gap:12px;">
+          <div class="card" style="padding:12px;">
+            <h4 style="margin:.2rem 0 .6rem 0;">Contact</h4>
+            <p>📧 {{ user.email }}</p>
+            <p>📞 {{ user.phone }}</p>
+            <p>🌐 <a :href="websiteHref" target="_blank" rel="noopener">{{ user.website }}</a></p>
+          </div>
+          <div class="card" style="padding:12px;">
+            <h4 style="margin:.2rem 0 .6rem 0;">Address</h4>
+            <p>{{ user.address.street }}, {{ user.address.suite }}</p>
+            <p>{{ user.address.city }} ({{ user.address.zipcode }})</p>
+            <p class="badge">lat {{ user.address.geo.lat }} · lng {{ user.address.geo.lng }}</p>
+          </div>
+          <div class="card" style="padding:12px;">
+            <h4 style="margin:.2rem 0 .6rem 0;">Company</h4>
+            <p><strong>{{ user.company.name }}</strong></p>
+            <p style="color:#cdd6ff;">“{{ user.company.catchPhrase }}”</p>
+            <p>{{ user.company.bs }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script setup>
+import { ref, onMounted, computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { getUserById } from '../services/api.js'
+
+const route = useRoute()
+const user = ref(null)
+const loading = ref(false)
+const error = ref('')
+
+const websiteHref = computed(() => {
+  const w = user.value?.website || ''
+  return w ? (w.startsWith('http') ? w : `https://${w}`) : '#'
+})
+
+onMounted(async () => {
+  loading.value = true; error.value = ''
+  try { user.value = await getUserById(route.params.id) }
+  catch(e){ error.value = e?.message || 'Failed to load user detail' }
+  finally { loading.value = false }
+})
+</script> -->

@@ -1,6 +1,6 @@
 <template>
   <section class="grid">
-    <SearchBar v-model="name" @search="handleSearch" />
+    <SearchBar v-model="email" @search="handleSearch" />
 
     <div class="card" style="padding:12px; display:flex; gap:.6rem; flex-wrap:wrap; align-items:center;">
       <div style="display:flex; gap:.4rem; align-items:center;">
@@ -35,7 +35,7 @@
     </div>
 
     <div v-else class="grid cols">
-      <UserCard v-for="u in visible" :key="u.id" :user="u" :highlight="name" />
+      <UserCard v-for="u in visible" :key="u.id" :user="u" :highlight="email" />
     </div>
   </section>
 </template>
@@ -49,7 +49,7 @@ import UserCard from '../components/UserCard.vue'
 const allUsers = ref([])
 const loading  = ref(false)
 const error    = ref('')
-const name     = ref('')
+const email    = ref('')   // ganti name -> email
 
 const sortBy   = ref('name-asc')
 const city     = ref('')
@@ -69,17 +69,16 @@ onMounted(async () => {
   }
 })
 
-function resetAll(){ name.value=''; city.value=''; sortBy.value='name-asc' }
-function handleSearch(q){ name.value = q }
+function resetAll(){ email.value=''; city.value=''; sortBy.value='name-asc' }
+function handleSearch(q){ email.value = q }
 
 const filtered = computed(() => {
-  const q = name.value.toLowerCase().trim()
+  const q = email.value.toLowerCase().trim()
   return allUsers.value.filter(u => {
-    const nm = (u.name || '').toLowerCase()
     const em = (u.email || '').toLowerCase()
-    const matchName = !q || nm.includes(q) || em.includes(q)
+    const matchEmail = !q || em.includes(q)
     const matchCity = !city.value || u.address?.city === city.value
-    return matchName && matchCity
+    return matchEmail && matchCity
   })
 })
 
