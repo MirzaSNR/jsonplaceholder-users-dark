@@ -4,7 +4,7 @@ Aplikasi frontend sederhana untuk menampilkan daftar pengguna dari API **https:/
 Fitur:
 - Daftar pengguna (vertikal scroll cards)
 - Halaman detail pengguna (klik kartu)
-- Search by nama (menggunakan partial, case-insensitive)
+- Search by email (menggunakan partial, case-insensitive)
 - Sort (nama/kota) & urutkan berdasarkan kota
 - Highlight kata yang dicari
 - Responsive dark theme UI
