@@ -2,17 +2,17 @@
 
 Aplikasi frontend sederhana untuk menampilkan daftar pengguna dari API **https://jsonplaceholder.typicode.com/users**.  
 Fitur:
-- Daftar pengguna (horizontal scroll cards)
-- Halaman detail user (klik kartu)
-- Search by name (partial, case-insensitive)
-- Sort (nama/city) & filter by city
+- Daftar pengguna (vertikal scroll cards)
+- Halaman detail pengguna (klik kartu)
+- Search by nama (menggunakan partial, case-insensitive)
+- Sort (nama/kota) & urutkan berdasarkan kota
 - Highlight kata yang dicari
 - Responsive dark theme UI
 
 ---
 
 ## 🚀 Demo
-Vercel: [https://your-app.vercel.app](https://your-app.vercel.app)
+Vercel: [https://jsonplaceholder-users-dark.vercel.app/](https://jsonplaceholder-users-dark.vercel.app/)
 
 ---
 
